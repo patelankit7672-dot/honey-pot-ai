@@ -1,0 +1,8 @@
+# 🍯 Honeypot Daily Cron Job (v0.5)
+# Schedule: Midnight every day (0 0 * * *)
+
+# 1. Generate the heatmap
+0 0 * * * /usr/bin/python3 /app/visualize_attacks.py
+
+# 2. Send the report
+5 0 * * * /usr/bin/python3 /app/daily_report.py

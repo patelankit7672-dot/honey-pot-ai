@@ -1,0 +1,18 @@
+--index-url https://download.pytorch.org/whl/cu128
+--extra-index-url https://pypi.org/simple
+torch==2.11.0
+transformers>=4.48.0
+peft>=0.14.0
+trl>=0.14.0
+bitsandbytes>=0.45.0
+datasets>=3.2.0
+accelerate>=1.2.0
+scipy
+pandas
+huggingface_hub
+python-dotenv
+requests
+flask
+paramiko
+# Note: For Unsloth (Step 2), run:
+# pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"

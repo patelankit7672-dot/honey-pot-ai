@@ -1,0 +1,71 @@
+# ══════════════════════════════════════════════════════
+#  HONEY.AI — .gitignore
+# ══════════════════════════════════════════════════════
+
+# ── Python ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual environments ────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.env.local
+
+# ── SECURITY — Never commit these ──────────────────────
+host_key.pem
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+
+# ── Attack logs (contain real attacker IPs) ────────────
+attacks.jsonl
+enriched_attacks.jsonl
+attacks.log
+ip_cache.json
+attack_summary.json
+reports/
+
+# ── Model weights (too large for GitHub) ───────────────
+# honeypot-merged/          ← 3 GB safetensors
+honeypot-merged/
+# honeypot-model/           ← training checkpoints
+honeypot-model/
+honeypot-model-checkpoint/
+honeypot_adapter/
+adapter_model.safetensors
+*.gguf
+*.bin
+
+# ── PyTorch wheel files (500 MB each) ──────────────────
+*.whl
+torch_test.zip
+temp_torch/
+temp_torch_check/
+
+# ── Jupyter / misc ──────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Vercel build artifacts ──────────────────────────────
+.vercel/
+.next/
+node_modules/
