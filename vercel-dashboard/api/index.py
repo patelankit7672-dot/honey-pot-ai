@@ -275,7 +275,8 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 
         /* Stats */
         .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 20px; }
-        .stat { position: relative; overflow: hidden; padding: 20px 22px; }
+        .stat { position: relative; overflow: hidden; padding: 20px 22px; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+        .stat:hover { transform: translateY(-4px); border-color: var(--accent); }
         .stat::after {
             content: ''; position: absolute; top: -20px; right: -20px;
             width: 100px; height: 100px; border-radius: 50%; filter: blur(40px); opacity: 0.18; pointer-events: none;
@@ -390,14 +391,14 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
     </header>
 
     <div class="stats-row">
-        <div class="glass stat s-blue"><div class="stat-icon">⚡</div><div class="stat-val" id="v-cmds">0</div><div class="stat-lbl">Commands Captured</div></div>
-        <div class="glass stat s-purple"><div class="stat-icon">🔑</div><div class="stat-val" id="v-auths">0</div><div class="stat-lbl">Auth Attempts</div></div>
-        <div class="glass stat s-red"><div class="stat-icon">🌐</div><div class="stat-val" id="v-ips">0</div><div class="stat-lbl">Unique Threat IPs</div></div>
-        <div class="glass stat s-green"><div class="stat-icon">🛡️</div><div class="stat-val" id="v-threat" style="color:var(--success)">0</div><div class="stat-lbl">Threat Score / 100</div></div>
+        <div class="glass stat s-blue" onclick="scrollToSection('feed-section')"><div class="stat-icon">⚡</div><div class="stat-val" id="v-cmds">0</div><div class="stat-lbl">Commands Captured</div></div>
+        <div class="glass stat s-purple" onclick="scrollToSection('fp-section')"><div class="stat-icon">🔑</div><div class="stat-val" id="v-auths">0</div><div class="stat-lbl">Auth Attempts</div></div>
+        <div class="glass stat s-red" onclick="scrollToSection('map-section')"><div class="stat-icon">🌐</div><div class="stat-val" id="v-ips">0</div><div class="stat-lbl">Unique Threat IPs</div></div>
+        <div class="glass stat s-green" onclick="scrollToSection('tl-section')"><div class="stat-icon">🛡️</div><div class="stat-val" id="v-threat" style="color:var(--success)">0</div><div class="stat-lbl">Threat Score / 100</div></div>
     </div>
 
     <div class="main-grid">
-        <div class="glass" style="padding:20px;">
+        <div class="glass" id="tl-section" style="padding:20px;">
             <div class="card-label">Attack Timeline · 24h</div>
             <div class="chart-box"><canvas id="tlChart"></canvas></div>
             <div class="hmap-title"><div class="card-label">Events by Hour of Day</div></div>
@@ -405,7 +406,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
             <div class="hmap-lbls" id="hmap-lbls"></div>
         </div>
 
-        <div class="glass" style="padding:16px;">
+        <div class="glass" id="map-section" style="padding:16px;">
             <div class="card-label">Global Attack Origin Map</div>
             <div id="attack-map"></div>
             <div class="map-legend">
@@ -416,7 +417,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
             </div>
         </div>
 
-        <div class="glass" style="padding:16px;">
+        <div class="glass" id="fp-section" style="padding:16px;">
             <div class="card-label">Attacker Fingerprints</div>
             <div class="fp-scroll">
                 <table class="fp">
@@ -427,7 +428,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
         </div>
     </div>
 
-    <div class="bot-grid">
+    <div class="bot-grid" id="feed-section">
         <div class="glass" style="padding:20px;">
             <div class="card-label">Real-time Activity Feed</div>
             <div class="feed" id="event-feed"><div style="color:var(--muted);padding:20px;text-align:center">Loading…</div></div>
@@ -443,6 +444,11 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <script>
 function tick(){const t=new Date();document.getElementById('clock').textContent=t.toISOString().split('T')[1].slice(0,8)+' UTC';}
 setInterval(tick,1000);tick();
+
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 const map=L.map('attack-map',{zoomControl:false,attributionControl:false,center:[20,0],zoom:2,minZoom:1,maxZoom:8});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19}).addTo(map);

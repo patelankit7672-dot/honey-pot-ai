@@ -411,10 +411,8 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
             grid-template-columns: repeat(4,1fr);
             gap: 16px; margin-bottom: 20px;
         }
-        .stat {
-            position: relative; overflow: hidden;
-            padding: 20px 22px;
-        }
+        .stat { position: relative; overflow: hidden; padding: 20px 22px; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+        .stat:hover { transform: translateY(-4px); border-color: var(--accent); }
         .stat::after {
             content: ''; position: absolute;
             top: -20px; right: -20px;
@@ -582,33 +580,32 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 
     <!-- ── Stats ─────────────────────────────────────────────────── -->
     <div class="stats-row">
-        <div class="glass stat s-blue">
+        <div class="glass stat s-blue" onclick="scrollToSection('feed-section')">
             <div class="stat-icon">⚡</div>
             <div class="stat-val" id="v-cmds">0</div>
             <div class="stat-lbl">Commands Captured</div>
         </div>
-        <div class="glass stat s-purple">
+        <div class="glass stat s-purple" onclick="scrollToSection('fp-section')">
             <div class="stat-icon">🔑</div>
             <div class="stat-val" id="v-auths">0</div>
             <div class="stat-lbl">Auth Attempts</div>
         </div>
-        <div class="glass stat s-red">
+        <div class="glass stat s-red" onclick="scrollToSection('map-section')">
             <div class="stat-icon">🌐</div>
             <div class="stat-val" id="v-ips">0</div>
             <div class="stat-lbl">Unique Threat IPs</div>
         </div>
-        <div class="glass stat s-green">
+        <div class="glass stat s-green" onclick="scrollToSection('tl-section')">
             <div class="stat-icon">🛡️</div>
             <div class="stat-val" id="v-threat" style="color:var(--success)">0</div>
             <div class="stat-lbl">Threat Score / 100</div>
         </div>
     </div>
 
-    <!-- ── Main grid ──────────────────────────────────────────────── -->
     <div class="main-grid">
 
         <!-- Left: Timeline + Heatmap -->
-        <div class="glass" style="padding:20px;">
+        <div class="glass" id="tl-section" style="padding:20px;">
             <div class="card-label">Attack Timeline · 24h</div>
             <div class="chart-box">
                 <canvas id="tlChart"></canvas>
@@ -633,7 +630,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
         </div>
 
         <!-- Right: Fingerprints -->
-        <div class="glass" style="padding:16px;">
+        <div class="glass" id="fp-section" style="padding:16px;">
             <div class="card-label">Attacker Fingerprints</div>
             <div class="fp-scroll">
                 <table class="fp">
@@ -655,7 +652,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
     </div>
 
     <!-- ── Bottom grid ────────────────────────────────────────────── -->
-    <div class="bot-grid">
+    <div class="bot-grid" id="feed-section">
 
         <!-- Live Feed -->
         <div class="glass" style="padding:20px;">
@@ -684,6 +681,11 @@ function tick() {
         t.toISOString().split('T')[1].slice(0,8) + ' UTC';
 }
 setInterval(tick, 1000); tick();
+
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 // ── Leaflet map ────────────────────────────────────────────────────────────────
 const map = L.map('attack-map', {
