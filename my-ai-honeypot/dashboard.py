@@ -197,10 +197,14 @@ def api_map():
 
     points = []
     for ip, group in df.groupby('ip'):
-        geo_vals = group['geo'].dropna()
-        if geo_vals.empty:
-            continue
-        geo = geo_vals.iloc[0]
+        # ── Special handling for Localhost/Dev tests ──────────────────
+        if ip in ('127.0.0.1', '::1', 'localhost'):
+            geo = {'lat': 20.0, 'lon': 0.0, 'country': 'Developer Home', 'city': 'Localhost', 'isp': 'Internal Test'}
+        else:
+            geo_vals = group['geo'].dropna()
+            if geo_vals.empty: continue
+            geo = geo_vals.iloc[0]
+
         if not isinstance(geo, dict) or 'lat' not in geo or 'lon' not in geo:
             continue
         try:
@@ -677,7 +681,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 function tick() {
     const t = new Date();
     document.getElementById('clock').textContent =
-        t.toLocaleTimeString('en-GB',{hour12:false}) + ' (local)';
+        t.toISOString().split('T')[1].slice(0,8) + ' UTC';
 }
 setInterval(tick, 1000); tick();
 

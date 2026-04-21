@@ -18,6 +18,7 @@ build/
 venv/
 env/
 ENV/
+.env
 .env.local
 
 # ── SECURITY — Never commit these ──────────────────────
