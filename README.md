@@ -3,7 +3,7 @@
 <div align="center">
 
 ![HONEY.AI Logo](https://img.shields.io/badge/🍯_HONEY.AI-Threat_Intelligence-00e5ff?style=for-the-badge&labelColor=050508)
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-00e5ff?style=for-the-badge&logo=vercel&logoColor=white&labelColor=050508)](https://honey-ai.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-00e5ff?style=for-the-badge&logo=vercel&logoColor=white&labelColor=050508)](https://honey-pot-ai.vercel.app)
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Ollama](https://img.shields.io/badge/Ollama-Local_LLM-7c3aed?style=for-the-badge&labelColor=050508)](https://ollama.com)
 [![License](https://img.shields.io/badge/License-MIT-00ff88?style=for-the-badge&labelColor=050508)](LICENSE)
@@ -12,6 +12,20 @@
 Powered by a custom fine-tuned Qwen 2.5 1.5B model running locally via Ollama.
 
 </div>
+
+---
+
+## 💡 How It Works (The 2-Part System)
+
+This project consists of two components that work together to provide both security and visibility:
+
+| Component | Purpose | Location | Data Type |
+|---|---|---|---|
+| **Public Dashboard** | Portfolio / Live Demo | **Vercel** (Cloud) | **Simulated** (Showcase) |
+| **Real Honeypot** | Actual Security Trap | **Your Computer** (Local) | **Real** (Actual Attacks) |
+
+> [!TIP]
+> Use the **Vercel link** to show off your work to others. Use the **Local scripts** to actually catch hackers on your own machine.
 
 ---
 
@@ -83,7 +97,7 @@ The model responds to shell commands with realistic terminal output, maintaining
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/honey-pot-ai.git
+git clone https://github.com/patelankit7672-dot/honey-pot-ai.git
 cd honey-pot-ai/my-ai-honeypot
 
 # Create virtual environment
@@ -161,17 +175,6 @@ vercel-dashboard/           # Public demo (deployed to Vercel)
 | Geo-IP | [ip-api.com](https://ip-api.com) (free tier) |
 | Deployment | [Vercel](https://vercel.com) (demo) |
 
-## 📧 Daily Email Reports
-
-Configure SMTP in `.env` to receive daily HTML reports:
-
-```env
-SMTP_EMAIL=your-bot@gmail.com
-SMTP_PASSWORD=your-gmail-app-password  # App Password, not main password
-```
-
-Get a Gmail App Password: [myaccount.google.com → Security → App passwords](https://myaccount.google.com/apppasswords)
-
 ## 📄 License
 
 MIT License — free to use, modify, and distribute.
@@ -179,7 +182,7 @@ MIT License — free to use, modify, and distribute.
 ---
 
 <div align="center">
-Built with 🍯 by <a href="https://github.com/YOUR_USERNAME">Ankit Patel</a>
+Built with 🍯 by <a href="https://github.com/patelankit7672-dot">Ankit Patel</a>
 <br>
 <sub>⭐ Star this repo if you find it useful!</sub>
 </div>
